@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <title>Pyther</title>
+
+        <style>
+            
+            #container {
+                display: flex;           /* establish flex container */
+                flex-direction: column;  /* make main axis vertical */
+                justify-content: center; /* center items vertically, in this case */
+                align-items: center;     /* center items horizontally, in this case */
+                height: 300px;
+            }
+
+            .box form input {
+                min-width: 400px;
+                min-height: 30px;
+                text-align: center
+            }
+            .color-results {
+                color: blue;
+                display: inline;
+            }
+            .error {
+                color: red;
+            }
+        </style>
+    </head>
+    
+    <body>
+            <div id="container"><!-- flex container -->
+
+                <div class="box" id="input"><!-- flex item -->
+                    <form action="/" method="POST">
+                        <label for="city_input">City:</label>
+                        <input type="text" name="city_name" id="city_input" />
+                    </form>
+                </div>
+
+                <div class="box" id="output"><!-- flex item -->
+                    
+                        
+                        {% if result and error == False %}
+                            Temp: <div class="color-results"> {{ result['temp'] }}°C , </div> 
+                            Pressure: <div class="color-results"> {{ result['pressure'] }} hPa </div>
+                            Humidity: <div class="color-results"> {{ result['humidity'] }}% </div>
+                            {% if result['localtime'] %} 
+                                LocalTime: <div class="color-results"> {{ result['localtime'] }} </div>
+                            {% endif %}
+                        {% endif %}
+                        
+                        <div class="error">
+                        {% if error == True %}
+                            Sorry, the city is not found
+                        {% endif %}
+                        </div>
+                        
+                    
+                </div>
+
+            </div>
+    </body>
+
+</html>
