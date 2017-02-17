@@ -10,10 +10,10 @@ def index():
             result = []
             error = True
             from checkWeather import checkWeather
-            temp, pressure, humidity, localtime = checkWeather(city_name)
+            temp, pressure, humidity, localtime, country = checkWeather(city_name)
             if temp is not None:
                 error = False
-                result = {'temp': temp, 'pressure': pressure, 'humidity': humidity, 'localtime': localtime }
+                result = {'temp': temp, 'pressure': pressure, 'humidity': humidity, 'localtime': localtime, 'country': country }
             return render_template('index.html', result=result, error=error )
     
     return render_template('index.html', result=None, error=False)

@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Pyther</title>
+                      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
         <style>
             
@@ -24,7 +25,37 @@
             .error {
                 color: red;
             }
+      
         </style>
+
+            {% if result['country'] %}
+                        
+                        <script>    
+                                    console.log("{{ result['country'] | safe }} ");
+                                google.charts.load('upcoming', {'packages':['geochart']});
+                                
+                                setTimeout(function() {
+                                    google.charts.setOnLoadCallback(drawRegionsMap("{{ result['country'] | safe }}"));
+                                  }, 2000);
+                              function drawRegionsMap(country) {
+                            
+                                    var data = google.visualization.arrayToDataTable([
+                                      ['Country', 'Temp'],
+                                      [country, 700]
+                                  
+                                    ]);
+                                
+                                    var options = {};
+                                
+                                    var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+                                
+                                    chart.draw(data, options);
+                                  }
+                        </script>                     
+                    {% endif %}
+
+
+    
     </head>
     
     <body>
@@ -53,12 +84,21 @@
                         {% if error == True %}
                             Sorry, the city is not found
                         {% endif %}
+                    
+
                         </div>
-                        
+
                     
                 </div>
 
+                    {% if result['country'] %}
+                        <div id="regions_div" style="width: 500px; height: 400px;"></div>
+                                 
+                    {% endif %}
             </div>
+
+
+
     </body>
 
 </html>

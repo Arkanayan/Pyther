@@ -23,9 +23,9 @@ def checkWeather(city_name):
         long = res_json['coord']['lon']
         lat = res_json['coord']['lat']
         localtime = getLocalTime(lat, long)
-        return res_json['main']['temp'], res_json['main']['pressure'], res_json['main']['humidity'], localtime
+        return res_json['main']['temp'], res_json['main']['pressure'], res_json['main']['humidity'], localtime, res_json['sys']['country']
     else:
-        return None, None, None, None
+        return None, None, None, None, None
 
 def getLocalTime(lat, long):
     base_url = "http://api.timezonedb.com/v2/get-time-zone?key=EFCY78UBD21D&by=position&format=json&"
